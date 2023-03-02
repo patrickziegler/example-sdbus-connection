@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
 
 // Yeah, global variable is ugly, but this is just an example and we want to access
 // the concatenator instance from within the concatenate method handler to be able
@@ -44,7 +45,8 @@ int main(int argc, char *argv[])
 {
     // Create D-Bus connection to the system bus and requests name on it.
     const char* serviceName = "org.sdbuscpp.concatenator";
-    auto connection = sdbus::createSessionBusConnection(serviceName);
+    auto connection = sdbus::createSessionBusConnectionWithAddress("unix:path=/tmp/bus.socket");
+    connection->requestName(serviceName);
 
     // Create concatenator D-Bus object.
     const char* objectPath = "/org/sdbuscpp/concatenator";

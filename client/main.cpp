@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     // will create its own connection automatically, and it will be system bus connection.
     const char* destinationName = "org.sdbuscpp.concatenator";
     const char* objectPath = "/org/sdbuscpp/concatenator";
-    auto conn = sdbus::createSessionBusConnection();
+    auto conn = sdbus::createSessionBusConnectionWithAddress("unix:path=/tmp/bus.socket");
     auto concatenatorProxy = sdbus::createProxy(std::move(conn), destinationName, objectPath);
 
     // Let's subscribe for the 'concatenated' signals
